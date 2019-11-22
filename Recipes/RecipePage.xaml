@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:resources="clr-namespace:Recipes"
+             mc:Ignorable="d"
+             x:Class="Recipes.RecipePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="PageLabel" 
+                   TargetType="Label" >
+                <Setter Property="Text" 
+                        Value=""/>
+                <Setter Property="TextColor"
+                        Value="#7D7BA2"/>
+                <Setter Property="FontSize"
+                        Value="Medium"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ToolBarFavorite" Text="{x:Static resources:Resource.PageAddFavorite}" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="#DFD7A9" Orientation="Vertical">
+                <Label x:Name="NameRecipe"
+                        Text="" 
+                        TextColor="#5F5E86"
+                        FontSize="Large" 
+                        FontAttributes="Bold" 
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"/>
+                <Image x:Name="MainImage"
+                        Source=""
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+                <Label x:Name="Ingredients"
+                        Style="{StaticResource PageLabel}"
+                        VerticalOptions="Center"/>
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="Calorie.png" HeightRequest="25"/>
+                    <Label x:Name="Calorie"
+                       Text=""
+                       Style="{StaticResource PageLabel}"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+                </StackLayout>
+                <ListView x:Name="InstructionList"        
+                          HasUnevenRows="True"
+                          SeparatorColor="#403E71"
+                          ItemsSource="{Binding}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label x:Name="Id" 
+                                               Style="{StaticResource PageLabel}"
+                                               FontAttributes="Bold"
+                                               Text="{Binding NumberStep, 
+                                                    StringFormat='Шаг: {0}:'}"/>
+                                        <Label x:Name="Step"
+                                                Style="{StaticResource PageLabel}"
+                                                Text="{Binding Step}"
+                                                HorizontalOptions="Start"/>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="Time.png" 
+                           HeightRequest="20"/>
+                    <Label x:Name="Time"
+                        Style="{StaticResource PageLabel}"
+                        FontAttributes="Bold"
+                        VerticalOptions="End"/>
+                </StackLayout>
+                
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

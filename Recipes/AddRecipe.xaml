@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:resources="clr-namespace:Recipes"
+             mc:Ignorable="d"
+             Title="{x:Static resources:Resource.AddName}"
+             x:Class="Recipes.AddRecipe">
+   <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="AddLabel" TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="#7D7BA2"/>
+                <Setter Property="VerticalOptions"
+                        Value="Center"/>
+                <Setter Property="FontSize"
+                        Value="Medium"/>
+            </Style>
+           <Style x:Key="AddEntry" TargetType="Entry">
+                <Setter Property="Keyboard"
+                        Value="Text"/>
+                <Setter Property="TextColor"
+                        Value="#7D7BA2"/>
+                <Setter Property="PlaceholderColor"
+                        Value="#7D7BA2"/>
+                <Setter Property="BackgroundColor"
+                        Value="#DFCAA9"/>
+                <Setter Property="FontSize"
+                        Value="Medium"/>
+            </Style>
+            <Style x:Key="AddButton" TargetType="Button">
+                <Setter Property="TextColor"
+                        Value="#515383"/>
+                <Setter Property="BackgroundColor"
+                        Value="#BCB16F"/>
+                <Setter Property="HorizontalOptions"
+                        Value="Center"/>
+                <Setter Property="BorderWidth"
+                        Value="2"/>
+                <Setter Property="BorderColor"
+                        Value="#515383"/>
+                <Setter Property="WidthRequest"
+                        Value="250"/>
+                <Setter Property="Margin"
+                        Value="5"/>
+                <Setter Property="FontAttributes"
+                        Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <TableView Intent="Form" HasUnevenRows="true" BackgroundColor="#DFD7A9" >
+            <TableView.Root>
+                <TableRoot>
+                    <TableSection>
+                        <ViewCell>
+                            <Entry x:Name="NameRecipe"
+                                   Keyboard="Text"
+                                   Placeholder="{x:Static resources:Resource.AddEditName}" 
+                                   TextColor="#5F5E86" 
+                                   PlaceholderColor="#5F5E86" 
+                                   FontSize="Large" 
+                                   FontAttributes="Bold" 
+                                   HorizontalOptions="Center" />
+                        </ViewCell>
+                        <ViewCell>
+                            <ScrollView>
+                                <Image Source="LoadImage" 
+                                       x:Name="ViewImage"/>
+                            </ScrollView>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button Text="{x:Static resources:Resource.AddButtonImage}" 
+                                        Style="{StaticResource AddButton}"
+                                        Clicked="AddImage" 
+                                        VerticalOptions="Center"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label x:Name="TypeDishLabel" Text="{x:Static resources:Resource.AddTypeDish}"
+                                    Style="{StaticResource AddLabel}"
+                                    FontAttributes="Bold"/>
+                                <Picker x:Name="TypeDishPicker" SelectedIndexChanged="TypeDishPicker_SelectedIndexChanged"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Entry x:Name="Ingred"
+                                       Style="{StaticResource AddEntry}"
+                                       TextChanged="Ingred_TextChanged"
+                                       VerticalOptions="Start"
+                                       Placeholder="{x:Static resources:Resource.AddPlaceholderIngred}"/>
+                                <Entry x:Name="Weight"
+                                       Keyboard="Numeric"
+                                       VerticalOptions="Center"
+                                       Placeholder="{x:Static resources:Resource.AddPlaceholderWeight}"
+                                       Style="{StaticResource AddEntry}"/>
+                                <Entry x:Name="Unit"
+                                       VerticalOptions="Start"
+                                       IsReadOnly="False"
+                                       Placeholder="{x:Static resources:Resource.AddPlaceholderUnit}"
+                                       Style="{StaticResource AddEntry}"/>
+                                <Button VerticalOptions="End"
+                                        Style="{StaticResource AddButton}"
+                                        WidthRequest="60"
+                                        Text="+" 
+                                        Margin="0"
+                                        Clicked="AddIngred"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <ScrollView>
+                                <ListView x:Name="IngredientsList" 
+                                            HeightRequest="100"          
+                                            HasUnevenRows="True"
+                                            SeparatorColor="#403E71"
+                                            ItemsSource="{Binding}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell >
+                                                <ViewCell.View>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label x:Name ="NameOfIngredient"
+                                                                Style="{StaticResource AddLabel}"
+                                                                Text="{Binding NameOfIngredient}"
+                                                                HorizontalOptions="Start"/>
+                                                        <Label x:Name ="Weight"
+                                                                Style="{StaticResource AddLabel}"
+                                                                Text="{Binding Weight}"
+                                                                HorizontalOptions="Center"/>
+                                                        <Label x:Name ="Unit"
+                                                                Style="{StaticResource AddLabel}"
+                                                                Text="{Binding Unit}"
+                                                                HorizontalOptions="Center"/>
+                                                    </StackLayout>
+                                                </ViewCell.View>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollView>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout>
+                                <Button Style="{StaticResource AddButton}"
+                                        Text="{x:Static resources:Resource.AddButtonDelete}"
+                                        HorizontalOptions="Center"
+                                        Clicked="DeleteIngred"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <Editor x:Name="EditStep"
+                                    Keyboard="Text"
+                                    HeightRequest="200"
+                                    Placeholder="{x:Static resources:Resource.AddEntryPlaceholderInstruction}"
+                                    PlaceholderColor="#7D7BA2"
+                                    TextColor="#7D7BA2"
+                                    FontSize="Medium" 
+                                    BackgroundColor="#DFCAA9"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button Style="{StaticResource AddButton}"
+                                    Text="{x:Static resources:Resource.AddStep}" 
+                                    Clicked="AddStep"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <ScrollView>
+                                <ListView x:Name="InstructionList" 
+                                            HeightRequest="100"          
+                                            HasUnevenRows="True"
+                                            SeparatorColor="#403E71"
+                                            ItemsSource="{Binding}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell >
+                                                <ViewCell.View>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label  x:Name="Step"
+                                                                Style="{StaticResource AddLabel}"
+                                                                Text="{Binding Step}"
+                                                                HorizontalOptions="Start"/>
+                                                    </StackLayout>
+                                                </ViewCell.View>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollView>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Button Style="{StaticResource AddButton}"
+                                        WidthRequest="120"
+                                        Text="{x:Static resources:Resource.AddButtonDelete}"
+                                        HorizontalOptions="StartAndExpand"
+                                        VerticalOptions="Center"
+                                        Clicked="DeleteInstruction"/>
+                                <Button Style="{StaticResource AddButton}"
+                                        WidthRequest="120"
+                                        Text="{x:Static resources:Resource.AddButtonChange}"
+                                        HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="Center"
+                                        Clicked="ChangeInstruction"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <Entry x:Name="Time"
+                                   Placeholder="{x:Static resources:Resource.AddEditTime}" 
+                                   TextColor="#7D7BA2" 
+                                   PlaceholderColor="#7D7BA2" 
+                                   FontSize="Medium" 
+                                   Keyboard="Numeric"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button Text="{x:Static resources:Resource.AddRecipe}" 
+                                    Style="{StaticResource AddButton}"
+                                    Clicked="Add"/>
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView.Root>
+        </TableView>
+    </ContentPage.Content>
+</ContentPage>

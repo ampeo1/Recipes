@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:resources="clr-namespace:Recipes"
+             mc:Ignorable="d"
+             Title="{x:Static resources:Resource.SearchName}"
+             x:Class="Recipes.ProductSearch">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SearchLabel" TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="#7D7BA2"/>
+                <Setter Property="VerticalOptions"
+                        Value="Center"/>
+                <Setter Property="FontSize"
+                        Value="Medium"/>
+            </Style>
+            <Style x:Key="SearchEntry" TargetType="Entry">
+                <Setter Property="Keyboard"
+                        Value="Text"/>
+                <Setter Property="TextColor"
+                        Value="#7D7BA2"/>
+                <Setter Property="PlaceholderColor"
+                        Value="#7D7BA2"/>
+                <Setter Property="BackgroundColor"
+                        Value="#DFCAA9"/>
+                <Setter Property="FontSize"
+                        Value="Medium"/>
+            </Style>
+            <Style x:Key="SearchButton" TargetType="Button">
+                <Setter Property="TextColor"
+                        Value="#515383"/>
+                <Setter Property="BackgroundColor"
+                        Value="#BCB16F"/>
+                <Setter Property="HorizontalOptions"
+                        Value="Center"/>
+                <Setter Property="BorderWidth"
+                        Value="2"/>
+                <Setter Property="BorderColor"
+                        Value="#515383"/>
+                <Setter Property="WidthRequest"
+                        Value="250"/>
+                <Setter Property="Margin"
+                        Value="5"/>
+                <Setter Property="FontAttributes"
+                        Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" 
+                    BackgroundColor="#DFD7A9">
+            <StackLayout Orientation="Horizontal" VerticalOptions="Start">
+                <Entry x:Name="Ingred"
+                        Style="{StaticResource SearchEntry}"
+                        VerticalOptions="Start"
+                        Placeholder="{x:Static resources:Resource.AddPlaceholderIngred}"/>
+                <Button VerticalOptions="Center"
+                        Style="{StaticResource SearchButton}"
+                        WidthRequest="60"
+                        Text="+" 
+                        Margin="0"
+                        Clicked="AddIngred"/>
+                <Button Text="{x:Static resources:Resource.AddButtonDelete}" 
+                        VerticalOptions="End"
+                        WidthRequest="120"
+                        Style="{StaticResource SearchButton}"
+                        Clicked="DeleteIngred"/>
+            </StackLayout>
+            <ScrollView>
+                <ListView x:Name="IngredientsList" 
+                        VerticalOptions="Center"
+                        HeightRequest="100"          
+                        HasUnevenRows="True"
+                        SeparatorColor="#403E71"
+                        ItemAppearing="IngredientsList_ItemAppearing"
+                        ItemsSource="{Binding}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label x:Name ="NameOfIngredient"
+                                                Style="{StaticResource SearchLabel}"
+                                                Text="{Binding NameOfIngredient}"
+                                                HorizontalOptions="Start"/>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            <ScrollView>
+                <ListView   x:Name="RecipesList" 
+                            VerticalOptions="End"
+                            ItemTapped="RecipesList_ItemTapped"
+                            HasUnevenRows="True"
+                            SeparatorColor="#403E71"
+                            ItemsSource="{Binding}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label  Text="{Binding Name}"
+                                                TextColor="#5F5E86"
+                                                FontSize="Large" 
+                                                FontAttributes="Bold" 
+                                                HorizontalOptions="Center" 
+                                                VerticalOptions="Start"/>
+                                        <Image  Source="{Binding ImageSource}" 
+                                                HorizontalOptions="Center" 
+                                                VerticalOptions="Center"/>
+                                        <Image  Source="Ingredient.png" 
+                                                HeightRequest="20"
+                                                HorizontalOptions="Start"/>
+                                        <Label  x:Name ="Ingredients"
+                                                Text="{Binding Ingredients}"                                       
+                                                TextColor="#7D7BA2"
+                                                FontSize="Medium"  
+                                                HorizontalOptions="Start" 
+                                                VerticalOptions="CenterAndExpand"/>
+                                        <StackLayout    Orientation="Horizontal" 
+                                                        VerticalOptions="End">
+                                            <Image  Source="Time.png" 
+                                                    HeightRequest="20"/>
+                                            <Label  Text="{Binding Time, StringFormat='{0} мин'}" 
+                                                    TextColor="#7D7BA2"
+                                                    FontSize="Medium"  
+                                                    HorizontalOptions="Start" 
+                                                    VerticalOptions="End"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>    
+</ContentPage>

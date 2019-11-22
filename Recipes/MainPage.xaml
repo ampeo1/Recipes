@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:resources="clr-namespace:Recipes"
+             mc:Ignorable="d"
+             Title="Рецепты"
+             x:Class="Recipes.MainPage">
+    <MasterDetailPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DetailButton"  TargetType="Button">
+                <Setter Property="BackgroundColor"
+                        Value="#C6B59B"/>
+                <Setter Property="TextColor"
+                        Value="#70718A"/>
+            </Style>
+        </ResourceDictionary>
+    </MasterDetailPage.Resources>
+    <MasterDetailPage.Master>
+        <ContentPage Title="Навигация">
+            <ContentPage.Content>
+                <StackLayout Padding="5" BackgroundColor="#BC9E6F">
+                    <Button Text="{x:Static resources:Resource.DetailCatalog}" 
+                            Clicked="Catalog_Clicked" 
+                            Style="{StaticResource DetailButton}"/>
+                    <Button Text="{x:Static resources:Resource.DetailAddRecipe}" 
+                            Clicked="Add_Clicked" 
+                            Style="{StaticResource DetailButton}"/>
+                    <Button Text="{x:Static resources:Resource.DetailSearch}" 
+                            Clicked="Search_Clicked" 
+                            Style="{StaticResource DetailButton}"/>
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail> 
+        <ContentPage Title="Master" BackgroundColor="Black">
+            
+            <ContentPage.Content>
+                <Label Text="DetailPage" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
+    

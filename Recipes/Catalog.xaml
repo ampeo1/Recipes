@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Recipes.Catalog"
+             Title="{x:Static resources:Resource.CatalogNamePage}"
+             xmlns:local="clr-namespace:Recipes;assembly=Recipes"
+             xmlns:resources="clr-namespace:Recipes">
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="{x:Static resources:Resource.TypeDishFirst}" Order="Secondary" Clicked="ToolbarItem_Clicked_First"/>
+        <ToolbarItem Text="{x:Static resources:Resource.TypeDishSecond}" Order="Secondary" Clicked="ToolbarItem_Clicked_Second"/>
+        <ToolbarItem Text="{x:Static resources:Resource.TypeDishSalad}" Order="Secondary" Clicked="ToolbarItem_Clicked_Salad"/>
+        <ToolbarItem Text="{x:Static resources:Resource.TypeDishBreakfast}" Order="Secondary" Clicked="ToolbarItem_Clicked_Breakfast"/>
+        <ToolbarItem Text="{x:Static resources:Resource.TypeDishDrink}" Order="Secondary" Clicked="ToolbarItem_Clicked_Drink"/>
+        <ToolbarItem Text="{x:Static resources:Resource.CatalogAllRecipes}" Order="Secondary" Clicked="ToolbarItem_Clicked_Nan"/>
+        <ToolbarItem Text="{x:Static resources:Resource.СatalogFavorite}" Order="Secondary" Clicked="ToolbarItem_Clicked_Favorite"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout Orientation="Vertical" 
+                 BackgroundColor="#DFD7A9">
+        <SearchBar x:Name="Searchbar"
+                   TextChanged="Searchbar_TextChanged"
+                   Keyboard="Text"
+                   Placeholder="{x:Static resources:Resource.CtalogSearch}"
+                   PlaceholderColor="#5F5E86" 
+                   TextColor="#5F5E86"/>
+        <ListView x:Name="RecipesList" 
+                  HasUnevenRows="True"
+                  SeparatorColor="#403E71"
+                  ItemTapped="RecipesList_ItemTapped"
+                  ItemsSource="{Binding}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell >
+                        <ViewCell.View>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Name}"
+                                       TextColor="#5F5E86"
+                                       FontSize="Large" 
+                                       FontAttributes="Bold" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Start"/>
+                                <Image Source="{Binding ImageSource}" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center"/>
+                                <Image Source="Ingredient.png" 
+                                       HeightRequest="20"
+                                       HorizontalOptions="Start"/>
+                                <Label x:Name ="Ingredients"
+                                       Text="{Binding Ingredients}"                                       
+                                       TextColor="#7D7BA2"
+                                       FontSize="Medium"  
+                                       HorizontalOptions="Start" 
+                                       VerticalOptions="CenterAndExpand"/>
+                                <StackLayout Orientation="Horizontal" 
+                                             VerticalOptions="End">
+                                    <Image x:Name="Watcher"
+                                           Source="Time.png" 
+                                           HeightRequest="20"/>
+                                    <Label Text="{Binding Time, StringFormat='{0} мин'}" 
+                                       TextColor="#7D7BA2"
+                                       FontSize="Medium"  
+                                       HorizontalOptions="Start" 
+                                       VerticalOptions="End"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
